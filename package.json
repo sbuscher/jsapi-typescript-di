@@ -1,0 +1,27 @@
+{
+  "name": "jsapi-typescript-sample",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "main": "rollup.config.js",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-node-resolve": "^14.1.0",
+    "@rollup/plugin-typescript": "^8.5.0",
+    "rollup": "^2.79.0",
+    "rollup-plugin-copy": "^3.4.0",
+    "tslib": "^2.4.0",
+    "typescript": "^4.8.3"
+  },
+  "dependencies": {
+    "@arcgis/core": "^4.24.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sbuscher/jsapi-typescript-sample.git"
+  }
+}
