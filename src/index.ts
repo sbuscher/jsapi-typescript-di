@@ -1,17 +1,12 @@
-import ArcGISMap from "@arcgis/core/Map";
-import MapView from "@arcgis/core/views/MapView";
+import "reflect-metadata";
+import { container } from 'tsyringe';
+import { Map } from "./map/mapComponent";
 
-const map = new ArcGISMap({
-  basemap: "streets-vector"
-});
+const map = container.resolve(Map);
 
-const view = new MapView({
-  map: map,
+map.createMap({
+  basemap: "streets-vector",
   container: "viewDiv",
   center: [-118.244, 34.052],
   zoom: 12
 });
-
-view.when(() => {
-  console.log("Map is loaded");
-})

@@ -11,6 +11,7 @@ npm i --save-dev @rollup/plugin-typescript
 npm i --save-dev rollup-plugin-copy 
 npm i --save-dev tslib
 npm i @arcgis/core  
+npm install --save @types/arcgis-js-api
 npm init --yes
 tsc --init
 mkdir jsapi-typescript-sample
