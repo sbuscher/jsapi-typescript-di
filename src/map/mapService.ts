@@ -1,36 +1,31 @@
-import MapView from "@arcgis/core/views/MapView"
-import Map from "@arcgis/core/Map";
+import ArcGISMapView from "@arcgis/core/views/MapView";
+import { singleton } from "tsyringe";
+import ArcGISMap from "@arcgis/core/Map"
+import { MapOptions, WebMapOptions } from "./interfaces";
+import MapView from "esri/views/MapView";
 
 
-export interface MapOptions {
-  basemap: string,
-  container: string,
-  center: number[],
-  zoom: number
-}
-
-export interface MapServiceUtils {
-  create: (options: MapOptions) =>  Promise<MapView>;
-}
-
-export class MapService implements MapServiceUtils {
+@singleton()
+export class MapService {
   constructor() {
   }
 
-  create = async (options: MapOptions) => { 
-    const map = new Map({
-      basemap: options.basemap 
-    });
+  buildMap = async (options: MapOptions) => { 
+    let map: ArcGISMap;
 
-    const view = new MapView({
+    map = options.basemap ?
+      new ArcGISMap({ basemap: options.basemap }) :
+      new ArcGISMap()
+
+    const view = new ArcGISMapView({ 
       map: map,
-      container: options.container,
-      center: options.center,
-      zoom: options.zoom
+      ...options
     });
 
-    view.when(() => { console.log("Map is loaded"); });
+    console.log("creating mapview", view);
 
-    return new MapView(); 
+    await view.when(() => { console.log("Map is loaded"); });
+
+    return view;
   }
 }
