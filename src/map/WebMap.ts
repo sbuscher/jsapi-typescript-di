@@ -16,21 +16,21 @@ export class WebMap {
     this._mapService = mapService;
   }
 
-  build = async (webMapOptions: WebMapOptions) => {
+  build = async (options: WebMapOptions) => {
     if (this._mapView) {
       return;
     }
 
-    if (webMapOptions.portalUrl) {
-      esriConfig.portalUrl = webMapOptions.portalUrl
+    if (options.portalUrl) {
+      esriConfig.portalUrl = options.portalUrl
     }
 
-    // webMapOptions.map = this._createWebMap(webMapOptions.portalItemId);
-    // console.log("WebMap map", webMapOptions);
-    // this._mapView = await this._mapService.buildMap(webMapOptions);
-    // console.log("WebMap", this._mapView);
+    const webmap = this._createWebMap(options.portalItemId); 
 
-    // return this._mapView;
+    const { basemap, container, center, zoom } = options;
+    const viewOptions = {basemap: basemap, container: container, center: center, zoom: zoom}
+
+    this._mapView = await this._mapService.buildMapView(webmap, viewOptions);
   }
 
   _createWebMap = (portalItemId: string) => {

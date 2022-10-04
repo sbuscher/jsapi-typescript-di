@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import { injectable } from "tsyringe";
+import ArcGISMap from "@arcgis/core/Map";
 import MapView from "@arcgis/core/views/MapView";
 import { MapService } from "./MapService";
 import { MapOptions } from "./interfaces";
@@ -18,7 +19,13 @@ export class Map {
     if (this._mapView) {
       return;
     }
-    console.log("request mapview", options);
-    this._mapView = await this._mapService.buildMap(options);
+
+    let map: ArcGISMap;
+
+    map = options.basemap ?
+      new ArcGISMap({ basemap: options.basemap }) :
+      new ArcGISMap()
+
+    this._mapView = await this._mapService.buildMapView(map, options);
   }
 }

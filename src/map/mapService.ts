@@ -1,8 +1,7 @@
-import ArcGISMapView from "@arcgis/core/views/MapView";
+import MapView from "@arcgis/core/views/MapView";
 import { singleton } from "tsyringe";
 import ArcGISMap from "@arcgis/core/Map"
-import { MapOptions, WebMapOptions } from "./interfaces";
-import MapView from "esri/views/MapView";
+import { MapOptions } from "./interfaces";
 
 
 @singleton()
@@ -10,22 +9,12 @@ export class MapService {
   constructor() {
   }
 
-  buildMap = async (options: MapOptions) => { 
-    let map: ArcGISMap;
+  _mapView?: MapView;
 
-    map = options.basemap ?
-      new ArcGISMap({ basemap: options.basemap }) :
-      new ArcGISMap()
+  buildMapView = async (map: ArcGISMap, options: MapOptions) => {
+    this._mapView = new MapView({ map, ...options });
+    await this._mapView.when();
 
-    const view = new ArcGISMapView({ 
-      map: map,
-      ...options
-    });
-
-    console.log("creating mapview", view);
-
-    await view.when(() => { console.log("Map is loaded"); });
-
-    return view;
-  }
+    return this._mapView;
+  } 
 }
