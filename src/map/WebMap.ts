@@ -4,13 +4,17 @@ import esriConfig from "@arcgis/core/config";
 import ArcGISWebMap from "@arcgis/core/WebMap";
 import MapView from "@arcgis/core/views/MapView";
 
-import { MapOptions, WebMapOptions } from "./interfaces";
+import { WebMapOptions } from "./interfaces";
 import { MapService } from "./MapService";
 
 @injectable()
 export class WebMap {
   _mapService: MapService;
   _mapView?: MapView;
+
+  get mapView() {
+    return this._mapView;
+  }
 
   constructor(mapService: MapService) {
     this._mapService = mapService;

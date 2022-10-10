@@ -22,3 +22,4 @@ const webMapOptions = {
 }
 
 webmap.build(webMapOptions);
+console.log(webmap.map?.portalItem);

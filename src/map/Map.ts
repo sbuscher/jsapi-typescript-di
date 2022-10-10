@@ -11,6 +11,10 @@ export class Map {
   _mapService: MapService;
   _mapView?: MapView;
 
+  get mapView() {
+    return this._mapView;
+  }
+
   constructor(mapService: MapService) {
     this._mapService = mapService;
   }
